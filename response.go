@@ -21,6 +21,12 @@ type Error struct {
 	Code   int    `json:"code"`   // error code from affiliate, it is not http status code
 }
 
+// DefaultSuccessResponse is default response for
+// inform user that proccess is success
+type DefaultSuccessResponse struct {
+	Success bool `json:"success"`
+}
+
 // SetError set the response to return the given error.
 // code is http status code, http.StatusInternalServerError is the default value
 func (res *Response) SetError(err error, code ...int) {
@@ -37,6 +43,13 @@ func (res *Response) SetError(err error, code ...int) {
 		}
 	}
 
+}
+
+// SetSuccess function will set default success response as data
+func (res *Response) SetSuccess() {
+	res.Data = DefaultSuccessResponse {
+		Success:true,
+	}
 }
 
 // Render writes the http response to the client
